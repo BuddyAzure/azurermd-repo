@@ -20,7 +20,19 @@ steps:
     location: 'North Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'CreateWebApp/azuredeploy.json'
+    overrideParameters: '-projectName azurermd -linkedTemplateUri https://raw.githubusercontent.com/BuddyAzure/azurermd-repo/master/- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'azurermd-repo'
+    subscriptionId: 'edcc204b-ad8a-411d-9bd4-560491d01e71'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'firstdp'
+    location: 'North Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'CreateWebApp/linkedStorageAccount.json'
     overrideParameters: '-projectName azurermd -linkedTemplateUri https://raw.githubusercontent.com/BuddyAzure/azurermd-repo/master/CreateWebApp/linkedStorageAccount.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'test01''
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
 - script: |
