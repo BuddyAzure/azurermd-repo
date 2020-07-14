@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'azurermd-repo'
+    subscriptionId: 'edcc204b-ad8a-411d-9bd4-560491d01e71'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'Test1'
+    location: 'North Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'CreateWebApp/azuredeploy.json.'
+    overrideParameters: '-projectName azurermd -linkedTemplateUri https://raw.githubusercontent.com/BuddyAzure/azurermd-repo/master/CreateWebApp/linkedStorageAccount.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+
+- script: |
+    
+    
+  displayName: 'Run a multi-line script'
